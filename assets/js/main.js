@@ -1,12 +1,1 @@
-const btn=document.querySelector('.menu-btn');
-const menu=document.querySelector('.menu');
-if(btn&&menu){
-  btn.addEventListener('click',()=>{
-    const open=menu.classList.toggle('open');
-    btn.setAttribute('aria-expanded',open?'true':'false');
-  });
-  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-    menu.classList.remove('open');
-    btn.setAttribute('aria-expanded','false');
-  }));
-}
+const slides=[...document.querySelectorAll('.slide')];const dots=document.querySelector('.dots');let current=0,timer;slides.forEach((_,i)=>{const b=document.createElement('button');b.addEventListener('click',()=>go(i));dots.appendChild(b)});const dotBtns=[...dots.children];function paint(){slides.forEach((s,i)=>s.classList.toggle('active',i===current));dotBtns.forEach((d,i)=>d.classList.toggle('active',i===current))}function go(i){current=(i+slides.length)%slides.length;paint();restart()}function next(){go(current+1)}function prev(){go(current-1)}function restart(){clearInterval(timer);timer=setInterval(next,5500)}document.querySelector('.next').addEventListener('click',next);document.querySelector('.prev').addEventListener('click',prev);paint();restart();document.querySelector('.menuBtn').addEventListener('click',()=>document.querySelector('.nav').classList.toggle('open'));
